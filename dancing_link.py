@@ -281,36 +281,4 @@ class DancingLinks:
 
 
 
-import random
-
-S1 = [1, 4, 7]
-S2 = [7, 5, 8]
-S3 = [3, 6, 9]
-S4 = [1, 4]
-S5 = [2, 4, 3, 1]
-S6 = [6, 9]
-X = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-S = [S1, S2, S3, S4, S5, S6]
-rS = [S6, S1, S3, S5, S2, S4]
-'''
-[[0 1 2 3 4 5 6]
- [. . 1 . 1 1 .]
- [1 . . 1 . . 1]
- [. 1 1 . . 1 .]
- [1 . . 1 . . .]
- [. 1 . . . . 1]
- [. . . 1 1 . 1]]
-'''
-
-dl = DancingLinks(len(S), len(X))
-
-for s in rS:
-    dl.append_row([X.index(e) for e in s], S.index(s))
-print(dl)
-ans = []
-dl.dancing(ans)
-print(ans)
-
-
-
     
