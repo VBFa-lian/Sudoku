@@ -1,14 +1,14 @@
 import numpy as np
 
 class DancingLinkNode:
-    """Nodes in a Dancing Links data structure. Each Node stores the pointer to the Node above it, 
-    below it, on its left and on its right. For this project, we do not need these Nodes to
-    store other imformation in them.
+    """Nodes in a Dancing Links data structure. Each node stores the pointer to the node above it, 
+    below it, on its left and on its right. For this project, we only need to store the row and column 
+    indexes of these nodes.
     """
 
     def __init__(self, row: int, col: int, head: 'DancingLinkNode' = None) -> None:
-        """Create a new Dancing Links Node at given row and column. The row index of
-        column head Node are -1, and the row and column index of root Node are both -1.
+        """Create a new Dancing Links node at given row and column. The row index of
+        column head node are -1, and the row and column index of root node are both -1.
 
         The rows and columns of Dancing Links are all circular linked lists, so for all new Nodes
         its all four pointers initially point to itself.
@@ -33,63 +33,63 @@ class DancingLinkNode:
     def get_left(self) -> 'DancingLinkNode':
         """
         Returns:
-            DancingLinkNode: the Node on the left of this Node.
+            DancingLinkNode: the node on the left of this node.
         """
         return self.__left
     
     def get_right(self) -> 'DancingLinkNode':
         """
         Returns:
-            DancingLinkNode: the Node on the right of this Node.
+            DancingLinkNode: the node on the right of this node.
         """
         return self.__right
     
     def get_above(self) -> 'DancingLinkNode':
         """
         Returns:
-            DancingLinkNode: the Node above this Node.
+            DancingLinkNode: the node above this node.
         """
         return self.__above
     
     def get_below(self) -> 'DancingLinkNode':
         """
         Returns:
-            DancingLinkNode: the Node below this Node.
+            DancingLinkNode: the node below this node.
         """
         return self.__below
     
     def get_head(self) -> 'DancingLinkNode':
         """
         Returns:
-            DancingLinkNode: the head node of the column this Node in 
+            DancingLinkNode: the head node of the column this node in 
         """
         return self.__head
 
     def set_left(self, node: 'DancingLinkNode'):
-        """Set the Node on the left of this Node.
+        """Set the node on the left of this node.
         """
         self.__left = node
 
     def set_right(self, node: 'DancingLinkNode'):
-        """Set the Node on the left of this Node.
+        """Set the node on the left of this node.
         """
         self.__right = node
 
     def set_above(self, node: 'DancingLinkNode'):
-        """Set the Node on the left of this Node.
+        """Set the node on the left of this node.
         """
         self.__above = node
 
     def set_below(self, node: 'DancingLinkNode'):
-        """Set the Node on the left of this Node.
+        """Set the node on the left of this node.
         """
         self.__below = node
 
     def get_loc(self) -> tuple[int, int]:
         """
         Returns:
-            tuple[int, int]: the (row, col) tuple of this Node. 
-            The row index of head Nodes are -1, and the row and column index of root Node are both -1.
+            tuple[int, int]: the (row, col) tuple of this node. 
+            The row index of head Nodes are -1, and the row and column index of root node are both -1.
         """
         return self.__loc
     
@@ -111,7 +111,7 @@ class DancingLinks:
         self.__row_count = 0
 
     def __build(self):
-        """Build this Dancing Links
+        """Build this Dancing Links, generate the root node and all column heads
         """
         prev = self.__root
         for c in range(self.__shape[1]):
@@ -119,6 +119,7 @@ class DancingLinks:
             prev.set_right(node)
             node.set_left(prev)
             prev = node
+        # connect the last column head node back to the root
         prev.set_right(self.__root)
         self.__root.set_left(prev)
 
@@ -133,16 +134,21 @@ class DancingLinks:
         if row_index == -1:
             row_index = self.__row_count
         for col_index in col_indexes:
+            # search the column to the new node located in
             head = self.__root.get_right()
             while head != self.__root:
                 if head.get_loc()[1] == col_index:
+                    # create new node at given location
                     node = DancingLinkNode(row_index, col_index, head)
+                    # append new nodes at the bottom of their column
                     head.get_above().set_below(node)
                     node.set_above(head.get_above())
                     head.set_above(node)
                     node.set_below(head)
+                    # update the firsts[] array
                     if self.__firsts[row_index] == None:
                         self.__firsts[row_index] = node
+                    # connect those nodes in that new row
                     self.__firsts[row_index].get_left().set_right(node)
                     node.set_left(self.__firsts[row_index].get_left())
                     self.__firsts[row_index].set_left(node)
@@ -185,18 +191,22 @@ class DancingLinks:
         Args:
             head (DancingLinkNode): head node of the column to remove
         """
+        # disconnect the head node from the head row
         head.get_left().set_right(head.get_right())
         head.get_right().set_left(head.get_left())
+        # go through all the nodes in this column
         current = head.get_below()
         while current != head:
+            # go through all the nodes in the same row as current node
             node = current.get_right()
             while node != current:
+                # discnnect these nodes from their columns
                 node.get_above().set_below(node.get_below())
                 node.get_below().set_above(node.get_above())
                 node = node.get_right()
             current = current.get_below()
-    #    print('remove col ', head.get_loc()[1])
-    #    print(self)
+#        print('remove col ', head.get_loc()[1])
+#        print(self)
 
 
     def recover(self, head: DancingLinkNode):
@@ -205,58 +215,87 @@ class DancingLinks:
         Args:
             head (DancingLinkNode): head node of the head to recover
         """
+        # connect the head node back to the head row
         head.get_left().set_right(head)
         head.get_right().set_left(head)
+        # go through all the nodes in this column
         current = head.get_below()
         while current != head:
+            # go through all the nodes in the same row as the current node
             node = current.get_right()
             while node != current:
+                # connect these nodes back to their column
                 node.get_above().set_below(node)
                 node.get_below().set_above(node)
                 node = node.get_right()
             current = current.get_below()
-    #    print('recover col ', head.get_loc()[1])
-    #    print(self)
+#        print('recover col ', head.get_loc()[1])
+#        print(self)
         
 
     def dancing(self, ans: list[int]):
+        """Solve the Exact Cover Problem, record the indexes of subsets in the given list
+
+        Args:
+            ans (list[int]): list to record answer
+
+        Returns:
+            bool: whether an answer is found
+        """
+        # check whether there are still head nodes in head row. If not, then the node
+        # at the right of the root node will be the root node itself, and at this time
+        # the whole Dancing Links is empty, meaning an answer is found.
         if self.__root.get_right() == self.__root:
         #    print('empty!')
             return True
         
+        # if there are still head nodes in head row, check whether all remaining columns
+        # still contain at least one node in them. If one column does not, then the node
+        # below the head of that column will be the head itself. This means this column 
+        # is not covered and the current answer must be wrong.
         head = self.__root.get_right()
         while head != self.__root:
             if head.get_below() == head:
-            #    print('not covered')
+#                print('not covered')
                 return False
             head = head.get_right()
 
-        not_ans = set()
+        ## keep removing columns and rows and call this function recursively
+        not_ans = set() # record rows that are already ruled out, avoid double checks
+        # remove the remaining columns one by one starting with the left most one
         head = self.__root.get_right()
         while head != self.__root:
-        #    print('remove col head', head.get_loc()[1])
+#            print('remove col head', head.get_loc()[1])
             self.remove(head)
+            # go through nodes in the removed column
             current = head.get_below()
             while current != head:
+                # if the row this node in has been ruled out then skip this row
                 if current.get_loc()[0] in not_ans:
                     current = current.get_below()
                     continue
+                # choose the row this node in as part of the answer
                 ans.append(current.get_loc()[0])
-                removed = []
+                removed = [] # record the removed column head
                 node = current.get_right()
-            #    print('remove row', current.get_loc()[0])
+                # remove all columns that share node with this row
+#                print('remove row', current.get_loc()[0])
                 while node != current:
                     removed.append(node.get_head())
                     self.remove(node.get_head())
                     node = node.get_right()
+                # call this function recursively, check whether an answer is found. If do,
+                # stop recursion and return True, or keep checking other possible answers
                 if self.dancing(ans):
                     return True
-            #    print('recover row', current.get_loc()[0])
+                # recover those removed rows and columns
+#                print('recover row', current.get_loc()[0])
                 while len(removed) > 0:
                     self.recover(removed.pop())
                 not_ans.add(ans.pop())
                 current = current.get_below()
-        #    print('recover col head', head.get_loc()[1])
+            # recover this removed head
+#            print('recover col head', head.get_loc()[1])
             self.recover(head)
             head = head.get_right()
         return False
@@ -268,9 +307,9 @@ class DancingLinks:
         head = self.__root.get_right()
         while head != self.__root:
             arr[head.get_loc()[0] + 1, head.get_loc()[1]] = head.get_loc()[1]
-        #    if head in self.__stack_of_removed:
-        #        head = head.get_right()
-        #        continue
+#            if head in self.__stack_of_removed:
+#                head = head.get_right()
+#                continue
             current = head.get_below()
             while current != head:
                 arr[current.get_loc()[0] + 1, current.get_loc()[1]] = 1
