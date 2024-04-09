@@ -105,7 +105,6 @@ class DancingLinks:
             col (int): number of columns in this Dancing Links.
         """
         self.__shape = (row, col)
-        self.__firsts = np.empty(row, DancingLinkNode)
         self.__root = DancingLinkNode(-1, -1)
         self.__build()
         self.__row_count = 0
@@ -133,6 +132,7 @@ class DancingLinks:
         """
         if row_index == -1:
             row_index = self.__row_count
+        row_first = None
         for col_index in col_indexes:
             # search the column to the new node located in
             head = self.__root.get_right()
@@ -145,14 +145,13 @@ class DancingLinks:
                     node.set_above(head.get_above())
                     head.set_above(node)
                     node.set_below(head)
-                    # update the firsts[] array
-                    if self.__firsts[row_index] == None:
-                        self.__firsts[row_index] = node
+                    if row_first == None:
+                        row_first = node
                     # connect those nodes in that new row
-                    self.__firsts[row_index].get_left().set_right(node)
-                    node.set_left(self.__firsts[row_index].get_left())
-                    self.__firsts[row_index].set_left(node)
-                    node.set_right(self.__firsts[row_index])
+                    row_first.get_left().set_right(node)
+                    node.set_left(row_first.get_left())
+                    row_first.set_left(node)
+                    node.set_right(row_first)
                     break
                 head = head.get_right()
         self.__row_count += 1
@@ -318,6 +317,3 @@ class DancingLinks:
         out = str(arr)
         return out[:out.index('\n')].replace('-1', ' _') + out[out.index('\n'):].replace('0', '.')
 
-
-
-    
