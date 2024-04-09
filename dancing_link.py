@@ -299,7 +299,7 @@ class DancingLinks:
             head = head.get_right()
         return False
 
-    def __str__(self) -> str:
+    def to_array(self) -> np.ndarray:
         arr = np.zeros((self.__shape[0] + 1, self.__shape[1]), int)
         for c in range(self.__shape[1]):
             arr[0, c] = -1
@@ -314,6 +314,10 @@ class DancingLinks:
                 arr[current.get_loc()[0] + 1, current.get_loc()[1]] = 1
                 current = current.get_below()
             head = head.get_right()
-        out = str(arr)
-        return out[:out.index('\n')].replace('-1', ' _') + out[out.index('\n'):].replace('0', '.')
+        return arr
 
+
+    def __str__(self) -> str:
+        out = str(self.to_array())
+        return out[:out.index('\n')].replace('-1', ' _') + out[out.index('\n'):].replace('0', '.')
+ 
