@@ -70,25 +70,28 @@ def generate_sudoku_matrix(sudoku_dic):
     :param sudoku_dic:
     :return: sudoku_matrix
    """
-    sudoku_matrix = dancing_link.DancingLinks(729, 324)
     for i in range(9):
         for j in range(9):
             # if the location already has the number
             if (i, j) in sudoku_dic:
                 k = sudoku_dic[(i, j)]
-                a, b, c, d = matrix_index_formula(i, j, k)
-                # we get the matrix's row index from the following formula
-                row_index = (i * 9 + j) * 9 + k - 1
-                # use the dancing link method append row
-                dancing_link.DancingLinks.append_row(sudoku_matrix, [a, b, c, d], row_index)
+                get_row_index(i, j, k)
             # if the location do not have number yet
             else:
                 # fill in with 1-9
                 for k in range(1, 10):
-                    # do the same thing as above
-                    a, b, c, d = matrix_index_formula(i, j, k)
-                    row_index = (i * 9 + j) * 9 + k - 1
-                    dancing_link.DancingLinks.append_row(sudoku_matrix, [a, b, c, d], row_index)
+                    get_row_index(i, j, k)
+
+
+def get_row_index(i, j, k):
+    sudoku_matrix = dancing_link.DancingLinks(729, 324)
+
+    a, b, c, d = matrix_index_formula(i, j, k)
+    # we get the matrix's row index from the following formula
+    row_index = (i * 9 + j) * 9 + k - 1
+    # use the dancing link method append row
+    dancing_link.DancingLinks.append_row(sudoku_matrix, [a, b, c, d], row_index)
+
     return sudoku_matrix
 
 
@@ -103,7 +106,8 @@ def print_init(dic):
 
 init_numbers = 11
 dic = sudoku_init(init_numbers)
-print
+print_init(dic)
+
 matrix = generate_sudoku_matrix(dic)
 
 
