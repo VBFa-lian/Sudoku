@@ -144,11 +144,26 @@ def check_unique_answer(init_dic):
     matrix = generate_matrix(init_dic)
     return not matrix.dancing([], 2)
 
+def to_dic(sudoku: np.ndarray):
+    """Convert sudoku to dict form
 
+    Args:
+        sudoku (np.ndarray): 9*9 NDArray repersenting a uncompleted (or completed) sudoku
 
-def print_answer(ans):
+    Returns:
+        dict: dict of numbers in sudoku with (row, col) tuple as a key and number at that position as a value.
     """
-    This function is to print the full fill sudoku board, by the list of answers, that list include all the matrix's
+    sudoku_dic = {}
+    for r in range(sudoku.shape[0]):
+        for c in range(sudoku.shape[1]):
+            if sudoku[r, c] != 0:
+                sudoku_dic[(r, c)] = sudoku[r, c]
+    return sudoku_dic
+
+
+def answer_to_sudoku(ans):
+    """
+    This function is to return the full fill sudoku board, by the list of answers, that list include all the matrix's
     row index we raise up for the answer
     :param ans:
     :param init_dic:
@@ -185,3 +200,15 @@ print(matrix.to_array())
 file1 = open("matrix.txt", "w")
 file1.write(str(matrix.to_array()))
 '''
+sudoku = np.array([[6, 0, 0, 0, 8, 0, 2, 0, 0],
+                   [0, 0, 0, 0, 9, 0, 0, 0, 0],
+                   [2, 0, 4, 0, 0, 5, 0, 1, 7],
+                   [0, 0, 0, 8, 0, 0, 0, 4, 0],
+                   [0, 0, 7, 0, 2, 0, 0, 6, 0],
+                   [9, 1, 0, 0, 0, 0, 8, 0, 0],
+                   [0, 0, 6, 0, 0, 0, 0, 0, 0],
+                   [0, 0, 0, 6, 0, 0, 1, 0, 3],
+                   [0, 9, 0, 0, 4, 7, 0, 0, 0]])
+dic = to_dic(sudoku)
+ans = get_completed_sudoku(dic)
+print(check_unique_answer(dic))
