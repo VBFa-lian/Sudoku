@@ -241,11 +241,11 @@ class DancingLinks:
         #print(self)
         
 
-    def dancing(self, ans_list: list[list], ans_count: int = 1, ans: list[int] = []):
+    def dancing(self, ans_list: list[set], ans_count: int = 1, ans: list[int] = []):
         """Solve the Exact Cover Problem, record the indexes of subsets in the given list
 
         Args:
-            ans_list(list[list]): list to record current sulotions
+            ans_list(list[set]): list to record current sulotions
             ans_count: expected count of solutions, default value is 1
             ans (list[int]): list to record a possible answer, default value is an empty list
 
