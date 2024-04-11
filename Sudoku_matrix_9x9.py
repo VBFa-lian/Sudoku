@@ -121,14 +121,32 @@ def print_init(dic):
         print(row)
 
 
-init_numbers = 11
-init_dic = sudoku_init(init_numbers)
+
 # print_init(dic)
-matrix = generate_matrix(init_dic)
-ans = []
-dancing_link.DancingLinks.dancing(matrix, ans)
-print(ans)
-def print_answer(ans, init_dic):
+
+def get_completed_sudoku(init_dic):
+    """
+    This function is raised to get answer from the sudoku dictionary we initialize with 11 numbers
+    :param init_dic:
+    :return: ans
+    """
+    matrix = generate_matrix(init_dic)
+    ans = []
+    matrix.dancing(ans)
+    return ans[0]
+
+def check_unique_answer(init_dic):
+    """
+    This function is raised to check, if we dig inside a full sudoku, can we guarantee that we only have a unique answer
+    :param init_dic:
+    :return:
+    """
+    matrix = generate_matrix(init_dic)
+    return not matrix.dancing([], 2)
+
+
+
+def print_answer(ans):
     """
     This function is to print the full fill sudoku board, by the list of answers, that list include all the matrix's
     row index we raise up for the answer
@@ -136,23 +154,24 @@ def print_answer(ans, init_dic):
     :param init_dic:
     :return:
     """
-    rows = cols = 9
-    board = [[0 for _ in range(cols)] for _ in range(rows)]
-    for (row, col), num in init_dic.items():
-        board[row][col] = num
+    board = np.zeros((9, 9), int)
+
     # from the row index of our answer list, we can use some formula to get the sudoku's row, col and num
     for row_index in ans:
-        row = row_index//81
-        col = (row_index % 81)//9
-        num = (row_index % 81) % 9 + 1
-        board[row][col] = num
+        row = row_index//9//9
+        col = row_index//9 % 9
+        num = row_index % 9 + 1
+        board[row, col] = num
 
     # print the full board
-    for row in board:
-        print(row)
+    return board
 
 
-print_answer(ans, init_dic)
+"""init_numbers = 11
+init_dic = sudoku_init(init_numbers)
+print(get_completed_sudoku(init_dic))
+print(check_unique_answer(init_dic))"""
+
 
 
 
