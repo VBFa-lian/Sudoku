@@ -186,7 +186,7 @@ class DancingLinks:
                 return head
             head = head.get_right()
         else:
-            print('column not found')
+            #print('column not found')
             return None
 
     def remove(self, head: DancingLinkNode):
@@ -211,8 +211,8 @@ class DancingLinks:
             current = current.get_below()
         # minus 1 to node count of current column
         self.__col_nodes_count[head.get_loc()[1]] -= 1
-  #      print('remove col ', head.get_loc()[1])
- #       print(self)
+        #print('remove col ', head.get_loc()[1])
+        #print(self)
 
 
     def recover(self, head: DancingLinkNode):
@@ -237,84 +237,79 @@ class DancingLinks:
             current = current.get_below()
         # add 1 to node count of current column
         self.__col_nodes_count[head.get_loc()[1]] += 1
-  #      print('recover col ', head.get_loc()[1])
- #       print(self)
+        #print('recover col ', head.get_loc()[1])
+        #print(self)
         
 
-    def dancing(self, ans: list[int]):
+    def dancing(self, ans_list: list[list], ans_count: int = 1, ans: list[int] = []):
         """Solve the Exact Cover Problem, record the indexes of subsets in the given list
 
         Args:
-            ans (list[int]): list to record answer
+            ans_list(list[list]): list to record current sulotions
+            ans_count: expected count of solutions, default value is 1
+            ans (list[int]): list to record a possible answer, default value is an empty list
 
         Returns:
-            bool: whether an answer is found
+            bool: whether enough answers are found
         """
         # check whether there are still head nodes in head row. If not, then the node
         # at the right of the root node will be the root node itself, and at this time
         # the whole Dancing Links is empty, meaning an answer is found.
         if self.__root.get_right() == self.__root:
-        #    print('empty!')
-            return True
+            ans_set = set(ans.copy())
+            if ans_set not in ans_list:
+                ans_list.append(ans_set)
+            else:
+                print('repeat')
+            #print('empty!', ans_list)
+            return len(ans_list) == ans_count
         
         # if there are still head nodes in head row, check whether all remaining columns
         # still contain at least one node in them. If one column does not, then the node
         # below the head of that column will be the head itself. This means this column 
         # is not covered and the current answer must be wrong.
-        head_list: list[DancingLinkNode] = []
         head = self.__root.get_right()
+        min_head = head
         while head != self.__root:
             if head.get_below() == head:
-#                print('not covered', ans)
+                #print('not covered', ans)
                 return False
             # sort the heads based on the number of nodes in their columns
-            added = False
-            for i in range(len(head_list)):
-                if self.__col_nodes_count[head_list[i].get_loc()[1]] >= self.__col_nodes_count[head.get_loc()[1]]:
-                    head_list.insert(i, head)
-                    added = True
-                    break
-            if not added:
-                head_list.append(head)
+            if self.__col_nodes_count[min_head.get_loc()[1]] > self.__col_nodes_count[head.get_loc()[1]]:
+                min_head = head
 
             head = head.get_right()
 
         ## keep removing columns and rows and call this function recursively
-        #not_ans = set() # record rows that are already ruled out, avoid double checks
         # remove the column with the fewest nodes
-        head = head_list[0]
-#        print('remove col head', head.get_loc()[1])
+        head = min_head
+        #print('remove col head', head.get_loc()[1])
         self.remove(head)
         # go through nodes in the removed column
         current = head.get_below()
         while current != head:
-            # if the row this node in has been ruled out then skip this row
-            #if current.get_loc()[0] in not_ans:
-            #    current = current.get_below()
-                #   continue
             # choose the row this node in as part of the answer
             ans.append(current.get_loc()[0])
             removed = [] # record the removed column head
             node = current.get_right()
             # remove all columns that share node with this row
-#            print('remove row', current.get_loc()[0])
+            #print('remove row', current.get_loc()[0])
             while node != current:
                 removed.append(node.get_head())
                 self.remove(node.get_head())
                 node = node.get_right()
             # call this function recursively, check whether an answer is found. If do,
             # stop recursion and return True, or keep checking other possible answers
-            if self.dancing(ans):
+            if self.dancing(ans_list, ans_count = ans_count, ans = ans):
                 return True
             # recover those removed rows and columns
-#            print('recover row', current.get_loc()[0])
+            #print('recover row', current.get_loc()[0])
             while len(removed) > 0:
                 self.recover(removed.pop())
-            #not_ans.add(ans.pop())
             ans.pop()
             current = current.get_below()
         # recover this removed head
-#        print('recover col head', head.get_loc()[1])
+        #print('recover col head', head.get_loc()[1])
         self.recover(head)
         return False
 
@@ -338,12 +333,12 @@ class DancingLinks:
         out = str(self.to_array())
         return out[:out.index('\n')].replace('-1', ' _') + out[out.index('\n'):].replace('0', '.')
  
-"""s1 = [5, 9, 17]
+"""s3 = [5, 9, 17]
 s2 = [1, 8, 119]
-s3 = [3, 5, 17]
+s1 = [3, 5, 17]
 s4 = [1, 8]
 s5 = [3, 119]
-s6 = [8, 9, 119]
+s6 = [3]
 x = [1, 3, 5, 8, 9, 17, 119]
 s = [s1, s2, s3, s4, s5, s6]
 
@@ -353,5 +348,5 @@ for i in s:
     dl.append_row(x.index(e) for e in i)
 print(dl) 
 ans = []
-dl.dancing(ans)
+dl.dancing(ans, 3)
 print(ans)"""
