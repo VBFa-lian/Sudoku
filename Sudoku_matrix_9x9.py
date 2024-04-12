@@ -21,7 +21,41 @@ def matrix_col_indices(row, col, num):
 
 
 # for the sudoku initialization
-def sudoku_init(initial_numbers):
+def sudoku_init_non_repeat(initial_numbers):
+    # dic is to store the (row,col,num)
+    sudoku_dic = {}
+    constraint = set()
+
+    while len(sudoku_dic) < initial_numbers:
+        blocks = list(range(9))
+        rows = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+        cols = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+        nums = list(range(1, 10))
+        for _ in range(9):
+            block = blocks.pop(random.randint(0, len(blocks) - 1))
+            row = rows[block//3].pop(random.randint(0, len(rows[block//3])-1))
+            col = cols[block %3].pop(random.randint(0, len(cols[block %3])-1))
+            num = nums.pop(random.randint(0, len(nums)-1))
+            if (row, col) in sudoku_dic:
+                continue
+            # call the formula function to check if the constraint repeat or not
+            col_indices = matrix_col_indices(row, col, num)
+            has_repeat = False
+            for i in col_indices:
+                if i in constraint:
+                    has_repeat = True
+            if has_repeat:
+                continue
+            else:
+                constraint.update(col_indices)
+                sudoku_dic[(row, col)] = num
+                if len(sudoku_dic) == initial_numbers:
+                    return sudoku_dic
+    return sudoku_dic
+
+
+# for the sudoku initialization
+def sudoku_init_rand(initial_numbers):
     # dic is to store the (row,col,num)
     sudoku_dic = {}
     constraint = set()
@@ -48,7 +82,6 @@ def sudoku_init(initial_numbers):
             constraint.update(col_indices)
             sudoku_dic[(row, col)] = num
     return sudoku_dic
-
 
 def get_row_index(row, col, num):
     """
@@ -132,7 +165,7 @@ def get_completed_sudoku(init_dic):
     """
     matrix = generate_matrix(init_dic)
     ans = []
-    matrix.dancing(ans)
+    matrix.dancing(ans, 1, [])
     return ans[0]
 
 def check_unique_answer(init_dic):
@@ -213,18 +246,24 @@ def answer_to_sudoku(ans):
     # print the full board
     return board
 
-'''
-init_numbers = 11
-init_dic = sudoku_init(init_numbers)
-ans = get_completed_sudoku(init_dic)
+'''init_dic_list = []
+for i in range(10):
+    print(i)
+    init_numbers = 5
+    init_dic_list.append(sudoku_init(init_numbers))
+print(init_dic_list)
+for init_dic in init_dic_list:
+    ans = get_completed_sudoku(init_dic)
+    completed_sudoku = answer_to_sudoku(ans)
+print('done')'''
+
+dic = sudoku_init_non_repeat(0)
+ans = get_completed_sudoku(dic)
 completed_sudoku = answer_to_sudoku(ans)
-print(completed_sudoku)
 
-
+'''
 generate_sudoku_problems(completed_sudoku, counter=56)
 print(completed_sudoku)
-
-
 
 
 # following somehow is the debugging code used to view the output
@@ -234,7 +273,7 @@ print(matrix.to_array())
 file1 = open("matrix.txt", "w")
 file1.write(str(matrix.to_array()))
 '''
-sudoku = np.array([
+'''sudoku = np.array([
   [0, 9, 0, 0, 0, 8, 0, 4, 5]
 , [1, 0, 0, 0, 0, 9, 6, 0, 0]
 , [3, 5, 0, 2, 0, 0, 0, 0, 0]
@@ -247,6 +286,6 @@ sudoku = np.array([
 ])
 dic = to_dic(sudoku)
 #ans = get_completed_sudoku(dic)
-print(check_unique_answer(dic))
+print(check_unique_answer(dic))'''
 
 

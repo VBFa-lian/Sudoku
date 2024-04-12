@@ -241,7 +241,7 @@ class DancingLinks:
         #print(self)
         
 
-    def dancing(self, ans_list: list[set], ans_count: int = 1, ans: list[int] = []):
+    def dancing(self, ans_list: list[set], ans_count: int = 1, ans: list[int] = None):
         """Solve the Exact Cover Problem, record the indexes of subsets in the given list
 
         Args:
@@ -252,6 +252,9 @@ class DancingLinks:
         Returns:
             bool: whether enough answers are found
         """
+        #print(ans)
+        if ans == None:
+            ans = []
         # check whether there are still head nodes in head row. If not, then the node
         # at the right of the root node will be the root node itself, and at this time
         # the whole Dancing Links is empty, meaning an answer is found.
@@ -261,7 +264,7 @@ class DancingLinks:
                 ans_list.append(ans_set)
             else:
                 print('repeat')
-            #print('empty!', ans_list)
+            #print('empty!', len(ans_list))
             return len(ans_list) == ans_count
         
         # if there are still head nodes in head row, check whether all remaining columns
@@ -272,14 +275,13 @@ class DancingLinks:
         min_head = head
         while head != self.__root:
             if head.get_below() == head:
-                #print('not covered', ans)
+                #print('not covered', head.get_loc()[1])
                 return False
             # sort the heads based on the number of nodes in their columns
             if self.__col_nodes_count[min_head.get_loc()[1]] > self.__col_nodes_count[head.get_loc()[1]]:
                 min_head = head
 
             head = head.get_right()
-
         ## keep removing columns and rows and call this function recursively
         # remove the column with the fewest nodes
         head = min_head
