@@ -335,7 +335,7 @@ class DancingLinks:
         out = str(self.to_array())
         return out[:out.index('\n')].replace('-1', ' _') + out[out.index('\n'):].replace('0', '.')
  
-"""s3 = [5, 9, 17]
+'''s3 = [5, 9, 17]
 s2 = [1, 8, 119]
 s1 = [3, 5, 17]
 s4 = [1, 8]
@@ -351,4 +351,4 @@ for i in s:
 print(dl) 
 ans = []
 dl.dancing(ans, 3)
-print(ans)"""
+print(ans)'''

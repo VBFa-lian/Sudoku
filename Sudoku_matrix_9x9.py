@@ -195,14 +195,15 @@ def generate_sudoku_problems(sudoku, counter):
         # need to store the original value in a variable
         original = sudoku_dic.pop(choice_cell)
         if check_unique_answer(sudoku_dic):
-            counter = counter - 1
             sudoku[choice_cell[0], choice_cell[1]] = 0
+            print('remove', choice_cell, original)
             print(sudoku)
-            if generate_sudoku_problems(sudoku, counter):
+            if generate_sudoku_problems(sudoku, counter - 1):
                 return True
-        else:
-            # recover the original, and do not change the counter
-            sudoku_dic[choice_cell] = original
+            print('recover', choice_cell, original)
+            sudoku[choice_cell[0], choice_cell[1]] = original
+        # recover the original, and do not change the counter
+        sudoku_dic[choice_cell] = original
 
 
 
@@ -257,15 +258,16 @@ for init_dic in init_dic_list:
     completed_sudoku = answer_to_sudoku(ans)
 print('done')'''
 
-dic = sudoku_init_non_repeat(0)
+
+'''dic = sudoku_init_non_repeat(9)
 ans = get_completed_sudoku(dic)
 completed_sudoku = answer_to_sudoku(ans)
 
-'''
-generate_sudoku_problems(completed_sudoku, counter=56)
+generate_sudoku_problems(completed_sudoku, counter=60)
 print(completed_sudoku)
+print(check_unique_answer(to_dic(completed_sudoku)))'''
 
-
+'''
 # following somehow is the debugging code used to view the output
 write(matrix)
 np.set_print_options(threshold=np.inf)
@@ -273,19 +275,26 @@ print(matrix.to_array())
 file1 = open("matrix.txt", "w")
 file1.write(str(matrix.to_array()))
 '''
-'''sudoku = np.array([
-  [0, 9, 0, 0, 0, 8, 0, 4, 5]
-, [1, 0, 0, 0, 0, 9, 6, 0, 0]
-, [3, 5, 0, 2, 0, 0, 0, 0, 0]
-, [8, 0, 0, 5, 0, 3, 0, 0, 0]
-, [0, 0, 2, 0, 0, 7, 0, 0, 0]
-, [0, 0, 0, 0, 8, 0, 0, 0, 0]
-, [4, 0, 0, 0, 0, 0, 0, 3, 2]
-, [5, 0, 0, 9, 0, 1, 0, 0, 8]
-, [9, 8, 0, 0, 0, 0, 0, 0, 0]
-])
+
+test = '''
+[[0 0 0 5 0 0 0 4 0]
+ [5 0 0 0 0 0 3 0 0]
+ [0 0 0 0 0 8 0 0 0]
+ [0 3 1 0 0 6 0 9 8]
+ [0 0 0 2 0 0 0 0 0]
+ [0 0 6 7 0 0 0 0 2]
+ [0 1 4 0 0 2 0 6 0]
+ [7 0 0 9 0 0 0 0 0]
+ [0 0 0 0 7 0 0 0 1]]
+'''.strip().replace('[', '').replace(']', '')
+
+'''sudoku = np.array([[int(num) for num in row.strip().split(' ')] for row in test.splitlines()])
+count = 0
+for r in range(9):
+    for c in range(9):
+        if sudoku[r, c] != 0: count += 1
+print(sudoku, count)
 dic = to_dic(sudoku)
 #ans = get_completed_sudoku(dic)
 print(check_unique_answer(dic))'''
-
 
