@@ -1,4 +1,4 @@
-# Sudoku
+# Team TEA: Sudoku
 ## Introduction
 As all of our members are interested in solving sudoku, our project is to explore the data structure and algorithm behind sudoku by solving the problem of generating a random 9*9 sudoku with exactly one unique solution and providing a User Interface to try the sudoku puzzle we generate. In addition, we compared the two algorithms for generating and solving sudoku: Dancing Link with Algorithm X (DLX) and Depth First Search (DFS), and the comparison between their performance is shown by plots. 
 
