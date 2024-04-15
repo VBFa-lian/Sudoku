@@ -38,7 +38,7 @@ class Sudoku():
 
     def generate(self):
         """Generate completed board and solvable sudoku puzzle"""
-        sudoku_dic = Sudoku_matrix_9x9.sudoku_init_non_repeat(9)
+        sudoku_dic = Sudoku_matrix_9x9.sudoku_init(9)
         self.board = sudoku_dfs.sudoku_solver_help(sudoku_dic)
         print("\nBoard: ")
         sudoku_dfs.print_grid(self.board)

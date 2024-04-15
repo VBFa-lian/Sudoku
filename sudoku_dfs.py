@@ -212,7 +212,7 @@ def print_grid(grid):
         print(row)
 
 
-# sudoku_dic = Sudoku_matrix_9x9.sudoku_init_non_repeat(9)
+# sudoku_dic = Sudoku_matrix_9x9.sudoku_init(9)
 # sudoku = sudoku_solver_help(sudoku_dic)
 # print("\nBoard: ")
 # print_grid(sudoku)
