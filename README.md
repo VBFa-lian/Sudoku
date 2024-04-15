@@ -10,7 +10,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 
 
 ### Sudoku UI
-1. Open you terminal
+1. Open you terminal.
 2. Go to the directory where you store the sudoku.py file.
 3. Run the sudoku.py file by the command 'python sudoku.py'
 4. A window will show up with a solvable sudoku puzzle.
