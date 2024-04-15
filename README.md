@@ -8,7 +8,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 ## Instruction
 ### Performance Comparison
 1. Open your Jupyter Lab.
-2. Run the test.ipynb file in your Jupyter Lab by pressing Shift + Enter.
+2. Run the test.ipynb file in your Jupyter Lab by pressing `Shift + Enter`.
 3. The plots will be generated and displayed.
 4. Look at the plot and compare the runtime of DLX and DFS.
 
