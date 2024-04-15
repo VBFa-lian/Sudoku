@@ -15,7 +15,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 ### Sudoku UI
 1. Open you Terminal.
 2. Go to the directory where you store the sudoku.py file.
-3. Run the sudoku.py file by the command 'python sudoku.py'
+3. Run the sudoku.py file by the command 、python sudoku.py、
 4. A window will show up with a solvable sudoku puzzle.
 5. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
 6. Once finishing inputting all the empty cells, click on the “Check” button on the left to check if your solution is correct.
