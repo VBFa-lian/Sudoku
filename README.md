@@ -13,7 +13,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 4. Look at the plot and compare the runtime of DLX and DFS.
 
 ### Sudoku UI
-1. Open you Terminal.
+1. Open your Terminal.
 2. Go to the directory where you store the sudoku.py file.
 3. Run the `sudoku.py file` by the command `python sudoku.py`
 4. A window will show up with a solvable sudoku puzzle.
