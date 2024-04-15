@@ -15,6 +15,6 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 3. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
 4. Once finishing inputting all the empty cells, click on the “Check” button on the left to check if your solution is correct.
 5. The window will show a small message below the “Clear” button informing your results of whether you solve the puzzle
-- If you succeed, you can click on the “New” button to start a new game.
-- If you fail, you can either click on the “New” button to start a new game or click on the “Clear” button to restart and retry the same game.
+  - If you succeed, you can click on the “New” button to start a new game.
+  - If you fail, you can either click on the “New” button to start a new game or click on the “Clear” button to restart and retry the same game.
 6. Finally, close the window to quit the game.
