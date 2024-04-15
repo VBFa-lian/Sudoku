@@ -23,3 +23,6 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
   - If you succeed, you can click on the “New” button to start a new game.
   - If you fail, you can either click on the “New” button to start a new game or click on the “Clear” button to restart and retry the same game.
 8. Finally, close the window to quit the game.
+
+The following is the screenshot of the UI we provided.
+![Sudoku UI Screenshot](/sudoku_ui_screenshot.png)
