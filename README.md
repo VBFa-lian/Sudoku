@@ -6,3 +6,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 
 
 ## Instruction
+### Performance Conparison
+
+
+### Sudoku UI
