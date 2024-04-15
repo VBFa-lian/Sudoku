@@ -18,10 +18,10 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 3. Run the `sudoku.py file` by the command `python sudoku.py`
 4. A window will show up with a solvable sudoku puzzle.
 5. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
-6. Once finishing inputting all the empty cells, click on the “Check” button on the left to check if your solution is correct.
+6. Once finishing inputting all the empty cells, click on the `“Check” button` on the left to check if your solution is correct.
 7. The window will show a small message below the `“Clear” button` informing your results of whether you solve the puzzle
-  - If you succeed, you can click on the “New” button to start a new game.
-  - If you fail, you can either click on the “New” button to start a new game or click on the “Clear” button to restart and retry the same game.
+  - If you succeed, you can click on the `“New” button` to start a new game.
+  - If you fail, you can either click on the `“New” button` to start a new game or click on the `“Clear” button` to restart and retry the same game.
 8. Finally, close the window to quit the game.
 
 The following is the screenshot of the UI we provided.
