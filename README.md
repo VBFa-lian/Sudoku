@@ -8,14 +8,14 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 ## Instruction
 ### Performance Comparison
 1. Open your Jupyter Lab.
-2. Run the test.ipynb file in your Jupyter Lab by pressing `Shift + Enter`.
+2. Run the `test.ipynb` file in your Jupyter Lab by pressing `Shift + Enter`.
 3. The plots will be generated and displayed.
 4. Look at the plot and compare the runtime of DLX and DFS.
 
 ### Sudoku UI
 1. Open you Terminal.
 2. Go to the directory where you store the sudoku.py file.
-3. Run the sudoku.py file by the command `python sudoku.py`
+3. Run the `sudoku.py file` by the command `python sudoku.py`
 4. A window will show up with a solvable sudoku puzzle.
 5. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
 6. Once finishing inputting all the empty cells, click on the “Check” button on the left to check if your solution is correct.
