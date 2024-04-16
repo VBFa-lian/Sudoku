@@ -72,6 +72,34 @@ def sudoku_init(initial_numbers):
                     return sudoku_dic
     return sudoku_dic
 
+def sudoku_init_rand(initial_numbers):
+    # dic is to store the (row,col,num)
+    sudoku_dic = {}
+    constraint = set()
+    while len(sudoku_dic) < initial_numbers:
+        # get random rows
+        row = random.randint(0, 8)
+        # get random columns
+        col = random.randint(0, 8)
+        fill_in_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        num = random.choice(fill_in_num)
+        # check if (row, col) is already in the dic
+        # if in, next round
+        if (row, col) in sudoku_dic:
+            continue
+        # call the formula function to check if the constraint repeat or not
+        col_indices = matrix_col_indices(row, col, num)
+        has_repeat = False
+        for i in col_indices:
+            if i in constraint:
+                has_repeat = True
+        if has_repeat:
+            continue
+        else:
+            constraint.update(col_indices)
+            sudoku_dic[(row, col)] = num
+    return sudoku_dic
+
 
 def get_row_index(row, col, num):
     """
