@@ -13,7 +13,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 4. Look at the plot and compare the runtime of DLX and DFS.
 
 The following is the comparison study of performance of DLX and DFS:
-![Plots](/Performance_Comparison.jpg)
+![Plots](/performance_comparison.jpg)
 
 ### Sudoku UI
 1. Open your Terminal.
