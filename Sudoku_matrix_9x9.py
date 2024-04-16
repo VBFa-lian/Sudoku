@@ -15,14 +15,18 @@ def matrix_col_indices(row, col, num):
     The first formula is (row * 9 + col),which is in bound of 81 cols(0-80) in matrix. As we have 81 cells in sudoku,
     81 0/1(s), means to whether these 81 cells have number or not.
     The second formula is (row * 9 + num + 80), which is in bound of 81-161, plus 80 means that we start from 81 col in
-    matrix. When we fill in the sudoku, we need to think whether each row have 1-9 and only appear once, that part will
+    matrix. When we fill in the sudoku, we need to think whether each row have 1-9, that part will
     be row*9 + num.
     The third formula is (col * 9 + num + 161), which is in bound of 162-242, plus 161 means we start from 161 cols, that
-    is the third part of constraints. We need to determine whether each col have 1-9 and only appear once, which the
+    is the third part of constraints. We need to determine whether each col have 1-9, which the
     mathematical expression is col*9 + num.
     The fourth formula is (row // 3 * 3 + col // 3) * 9 + num + 242, that the bound is 243-323, plus 242 means we start
-    from 242 cols, the fourth part of constraints. i//3 x 3 + j//3 calculates which of the nine blocks (numbered 0-8) the
-    current cell belongs to, and then multiplies it by 9 and plus num means determine whether each block have 1-9 and
+    from 242 cols, the fourth part of constraints. row//3 x 3 + col//3 calculates which of the nine blocks (numbered 0-8) the
+    current cell belongs to. row//3 will have the result 0 or 1 or 2 which will locate to the up 3 rows, middle 3 rows and bottom
+    3 rows, then we multiple 3, will have (0, 3, 6) which is the start row number of each block. Plus col//3 means the left 3 cols
+    middle 3 cols and right 3 cols. Multiple 9 by row // 3 * 3 + col // 3 is because we have 9 possible number 1-9 to fill in, as
+    what we do for the previous two. Plus number we fill in and the displace number 242.
+    and then multiplies it by 9 and plus num means determine whether each block have 1-9 and
     appear once.
     :param row: the row index of sudoku
     :param col: the col index of sudoku
