@@ -12,6 +12,9 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 3. The plots will be generated and displayed.
 4. Look at the plot and compare the runtime of DLX and DFS.
 
+The following is the comparison study of performance of DLX and DFS:
+![Plots](/Performance_Comparison.jpg)
+
 ### Sudoku UI
 1. Open your Terminal.
 2. Go to the directory where you store the sudoku.py file.
@@ -25,5 +28,5 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
    - If you fail, you can either click on the `“New” button` to start a new game or click on the `“Clear” button` to restart and retry the same game.
 9. Finally, close the window to quit the game.
 
-The following is the screenshot of the UI we provided.
+The following is the screenshot of the UI we provided:
 ![Sudoku UI Screenshot](/sudoku_ui_screenshot.png)
