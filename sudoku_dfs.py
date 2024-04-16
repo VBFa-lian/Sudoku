@@ -106,6 +106,7 @@ def load_sudoku_from_dict(dic: dict):
 # load the file of sudoku start
 def load_sudoku_from_file(path):
     # load a single sudoku file from a file name
+    # sudoku_file_example is how a problem must be formatted to be solved like this
     # Assuming a standard 9x9 Sudoku puzzle
         # I changed ths python list here to np array since 
         # the size of the board do not change during the whole program
