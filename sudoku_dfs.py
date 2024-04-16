@@ -11,12 +11,19 @@ import random
 # begins the recursive function
 def sudoku_solver_help(sudoku_dic):
     grid = load_sudoku_from_dict(sudoku_dic)
-    solution = sudoku_solver(grid)
-    return return_solns(solution)
+    solution = []
+    sudoku_solver(grid, solution)
+    return return_solns(solution[0])
 
+
+def sudoku_check_unique(sudoku_dic):
+    grid = load_sudoku_from_dict(sudoku_dic)
+    solutions = []
+    sudoku_solver(grid, solutions, 2)
+    return len(solutions) == 1
 
 # recursive sudoku solver function
-def sudoku_solver(grid):
+def sudoku_solver(grid, solutions, ans_count = 1):
     for i in range(len(grid)):
         for j in range(len(grid)):
             if len(grid[i, j]) == 1:
@@ -27,24 +34,25 @@ def sudoku_solver(grid):
         for j in range(len(grid)):
             if len(grid[i, j]) == 0:
                 # print('wrong!')
-                return None
+                return False
             elif len(grid[i, j]) != 1:
                 solved_board = False
     # if a solution is found then return
     if solved_board:
-        return grid
+        solutions.append(grid)
+        return len(solutions) == ans_count
     else:
+        # find the first grid that haven't been determined
         for i in range(len(grid)):
             for j in range(len(grid)):
                 if len(grid[i, j]) > 1:
                     for val in grid[i, j]:
                         new_board = deepcopy(grid)
                         valid_grid(new_board, i, j, val)
-                        res = sudoku_solver(new_board)
-                        if res is not None:
-                            return res
-                    # print('wrong!')
-                    return None
+                        if sudoku_solver(new_board, solutions, ans_count=ans_count):
+                            return True
+                    # if all possible numbers in this grid 
+                    return False
 
 
 # check if current value being put into the grid is valid
@@ -89,11 +97,11 @@ def load_sudoku_from_dict(dic: dict):
 
 
 # load the file of sudoku start
-def load_sudoku_from_file():
+def load_sudoku_from_file(path):
     # load a single sudoku file from a file name
     # Assuming a standard 9x9 Sudoku puzzle
     grid = np.empty((9, 9), list)
-    with open('sudoku_files.txt', 'r') as file:
+    with open(path, 'r') as file:
         for r in range(9):
             line = file.readline().strip()  # Remove newline characters
             for c in range(len(line)):
