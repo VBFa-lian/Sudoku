@@ -14,7 +14,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 
 To test the performance, we try two different ways to initialize the fixed numbers: Random and Non-repeat. The first way is the random picking, which is to randomly fill out some cells by randomly picking N fixed numbers. After that, we randomly fill out other cells while keep checking if putting that number into a specific position will still comply with the sudoku rule, which is that each row, each column, and each block all has numbers 1 ~ 9 without any duplicates. The second way is the non-repeat choosing, which is to randomly choose N fixed numbers but making sure that the first 9 numbers of N fixed numbers we pick are all in different row, column, and block. Then, we randomly pick positions for the remaining (N-9) numbers. The purpose for this is to reduce the runtime it may take by avoiding too much overlapping in rows, columns, and blocks, which will increase the difficulty to fill out other cells and make the runtime longer.
 
-The following is the comparison study of performance of DLX and DFS:
+The following is the comparison study of performance of DLX and DFS for which we ran initial numbers from 0 to 20 and texted each 2000 trials:
 ![Plots](/../main/images/comparison.jpg)
 
 ### Sudoku UI
