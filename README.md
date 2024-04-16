@@ -7,10 +7,11 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 
 ## Instruction
 ### Performance Comparison
-1. Open your Jupyter Lab.
-2. Run the `test.ipynb` file in your Jupyter Lab by pressing `Shift + Enter`.
-3. The plots will be generated and displayed.
-4. Look at the plot and compare the runtime of DLX and DFS.
+1. Download the whole repository.
+2. Open your Jupyter Lab.
+3. Run the `test.ipynb` file in your Jupyter Lab by pressing `Shift + Enter`.
+4. The plots will be generated and displayed.
+5. Look at the plot and compare the runtime of DLX and DFS.
 
 To test the performance, we try two different ways to initialize the fixed numbers: Random and Non-repeat. The first way is the random picking, which is to randomly fill out some cells by randomly picking N fixed numbers. After that, we randomly fill out other cells while keep checking if putting that number into a specific position will still comply with the sudoku rule, which is that each row, each column, and each block all has numbers 1 ~ 9 without any duplicates. The second way is the non-repeat choosing, which is to randomly choose N fixed numbers but making sure that the first 9 numbers of N fixed numbers we pick are all in different row, column, and block. Then, we randomly pick positions for the remaining (N-9) numbers. The purpose for this is to reduce the runtime it may take by avoiding too much overlapping in rows, columns, and blocks, which will increase the difficulty to fill out other cells and make the runtime longer.
 
@@ -18,17 +19,18 @@ The following is the comparison study of performance of DLX and DFS for which we
 ![Plots](/../main/images/comparison.jpg)
 
 ### Sudoku UI
-1. Open your Terminal.
-2. Go to the directory where you store the sudoku.py file.
-3. Run the `sudoku.py file` by the command `python sudoku.py`
-4. A window will show up with a solvable sudoku puzzle.
-5. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
-6. To replace the existing number you inputted, just click on it again and input a number by keyboard.
-7. Once finishing inputting all the empty cells, click on the `“Check” button` on the left to check if your solution is correct.
-8. The window will show a small message below the `“Clear” button` informing your results of whether you solve the puzzle
+1. Download the whole repository.
+2. Open your Terminal.
+3. Go to the directory where you store the sudoku.py file.
+4. Run the `sudoku.py file` by the command `python sudoku.py`
+5. A window will show up with a solvable sudoku puzzle.
+6. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
+7. To replace the existing number you inputted, just click on it again and input a number by keyboard.
+8. Once finishing inputting all the empty cells, click on the `“Check” button` on the left to check if your solution is correct.
+9. The window will show a small message below the `“Clear” button` informing your results of whether you solve the puzzle
    - If you succeed, you can click on the `“New” button` to start a new game.
    - If you fail, you can either click on the `“New” button` to start a new game or click on the `“Clear” button` to restart and retry the same game.
-9. Finally, close the window to quit the game.
+10. Finally, close the window to quit the game.
 
 The following is the screenshot of the UI we provided:
 ![Sudoku UI Screenshot](/../main/images/sudoku_ui_screenshot.png)
