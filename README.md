@@ -8,7 +8,7 @@ The process to achieve our goal is to first convert the sudoku problem to the Ex
 ## Instruction
 ### Performance Comparison
 1. Download the whole repository.
-2. Open your Jupyter Lab.
+2. Open the repository with Jupyter Lab.
 3. Run the `test.ipynb` file in your Jupyter Lab by pressing `Shift + Enter`.
 4. The plots will be generated and displayed.
 5. Look at the plot and compare the runtime of DLX and DFS.
@@ -21,7 +21,7 @@ The following is the comparison study of performance of DLX and DFS for which we
 ### Sudoku UI
 1. Download the whole repository.
 2. Open your Terminal.
-3. Go to the directory where you store the sudoku.py file.
+3. Go to the downloaded repository and go to the folder where the `sudoku.py` file locates.
 4. Run the `sudoku.py file` by the command `python sudoku.py`
 5. A window will show up with a solvable sudoku puzzle.
 6. Click on the empty cell in the sudoku puzzle and input a number to it by keyboard.
