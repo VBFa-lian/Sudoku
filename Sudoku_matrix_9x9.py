@@ -15,10 +15,10 @@ def matrix_col_indices(row, col, num):
     The first formula is (row * 9 + col),which is in bound of 81 cols(0-80) in matrix. As we have 81 cells in sudoku,
     81 0/1(s), means to whether these 81 cells have number or not.
     The second formula is (row * 9 + num + 80), which is in bound of 81-161, plus 80 means that we start from 81 col in
-    matrix. When we fill in the sudoku, we need to think whether each row have 1-9 and only appear once, that part will
+    matrix. When we fill in the sudoku, we need to think whether each row have 1-9, that part will
     be row*9 + num.
     The third formula is (col * 9 + num + 161), which is in bound of 162-242, plus 161 means we start from 161 cols, that
-    is the third part of constraints. We need to determine whether each col have 1-9 and only appear once, which the
+    is the third part of constraints. We need to determine whether each col have 1-9, which the
     mathematical expression is col*9 + num.
     The fourth formula is (row // 3 * 3 + col // 3) * 9 + num + 242, that the bound is 243-323, plus 242 means we start
     from 242 cols, the fourth part of constraints. row//3 x 3 + col//3 calculates which of the nine blocks (numbered 0-8) the
